@@ -1,8 +1,9 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, request
 
-home = Blueprint(__name__, 'home')
+home = Blueprint('home', __name__)
 
 
 @home.route('/')
 def index():
-    return render_template('home/index.html')
+    category = request.args.get('cate', 'hot')
+    return render_template('home/index.html', category=category)
