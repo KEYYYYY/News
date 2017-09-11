@@ -13,7 +13,7 @@ class New(db.Model):
     image = db.Column(db.String(128))
     author = db.Column(db.String(64))
     view_num = db.Column(db.Integer, default=0)
-    add_time = db.Column(db.DateTime, default=datetime.utcnow)
+    add_time = db.Column(db.DateTime, default=datetime.now)
     is_valid = db.Column(db.Boolean, default=True)
 
     def __repr__(self):

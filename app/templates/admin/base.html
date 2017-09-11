@@ -14,48 +14,17 @@
 
 <body class="grey lighten-5">
     <div class="container">
-        <div class="card-panel">
-            <table class="responsive-table highlight">
-                <thead>
-                    <tr>
-                        <th>编号</th>
-                        <th>标题</th>
-                        <th>类别</th>
-                        <th>浏览量</th>
-                        <th>时间</th>
-                        <th>操作</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for new in news %}
-                    <tr>
-                        <td>{{ loop.index }}</td>
-                        <td>{{ new.title }}</td>
-                        <td>{{ new.type.name }}</td>
-                        <td>{{ new.view_num }}</td>
-                        <td>{{ new.add_time }}</td>
-                        <td>
-                            <a href="{{ url_for('admin.edit', new_id=new.id) }}" class="waves-effect waves-light btn" title="编辑">
-                            <i class="large material-icons">edit</i>
-                        </a>
-                            <a class="waves-effect waves-light btn red" title="删除">
-                            <i class="large material-icons">remove</i>
-                        </a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <div class="fixed-action-btn">
-                <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
-            </div>
-        </div>
+        {% block content %}
+        {% endblock %}
     </div>
 
     <!--  Scripts-->
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="{{ url_for( 'static', filename='js/materialize.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/init.js') }}"></script>
+    {% for message in get_flashed_messages() %}
+        <script>Materialize.toast('{{ message }}', 4000)</script>
+    {% endfor %}
 </body>
 
 </html>
