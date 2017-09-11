@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+    <title>后台管理系统</title>
+
+    <!-- CSS  -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/materialize.min.css') }}" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="{{ url_for('static', filename='css/style.css') }}" type="text/css" rel="stylesheet" media="screen,projection">
+</head>
+
+<body class="grey lighten-5">
+    <div class="container">
+        <div class="card-panel">
+            <table class="responsive-table highlight">
+                <thead>
+                    <tr>
+                        <th>编号</th>
+                        <th>标题</th>
+                        <th>类别</th>
+                        <th>浏览量</th>
+                        <th>时间</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for new in news %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>{{ new.title }}</td>
+                        <td>{{ new.type.name }}</td>
+                        <td>{{ new.view_num }}</td>
+                        <td>{{ new.add_time }}</td>
+                        <td>
+                            <a href="{{ url_for('admin.edit', new_id=new.id) }}" class="waves-effect waves-light btn" title="编辑">
+                            <i class="large material-icons">edit</i>
+                        </a>
+                            <a class="waves-effect waves-light btn red" title="删除">
+                            <i class="large material-icons">remove</i>
+                        </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="fixed-action-btn">
+                <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+            </div>
+        </div>
+    </div>
+
+    <!--  Scripts-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="{{ url_for( 'static', filename='js/materialize.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/init.js') }}"></script>
+</body>
+
+</html>

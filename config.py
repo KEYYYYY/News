@@ -1,4 +1,5 @@
 class Config:
-    DEBUG = True
+    DEBUG = False
     SQLALCHEMY_DATABASE_URI = 'mysql://root:@localhost:3306/test'
-    SQLALCHEMY_TRACK_MODIFICATIONS = True
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SECRET_KEY = '763997136'

@@ -4,7 +4,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
-    <title>网易新闻</title>
+    <title>新闻</title>
 
     <!-- CSS  -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -16,16 +16,19 @@
     <nav>
         <div class="container">
             <div class="nav-wrapper">
-                <a href="#" class="brand-logo">网易新闻</a>
+                <a href="#" class="brand-logo">新闻</a>
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
-                    <li {% if tag == 'hot' %}class="active"{% endif %}><a href="{{ url_for('home.index') }}?tag=hot">热门</a></li>
-                    <li {% if tag == 'tech' %}class="active"{% endif %}><a href="{{ url_for('home.index') }}?tag=tech">科技</a></li>
+                    <li {% if category == 'hot' %}class="active"{% endif %}><a href="{{ url_for('home.index') }}?category=hot">热门</a></li>
+                    <li {% if category == 'tech' %}class="active"{% endif %}><a href="{{ url_for('home.index') }}?category=tech">科技</a></li>
                 </ul>
                 <ul class="side-nav" id="mobile-demo">
-                    <li class="active"><a href="sass.html">热门</a></li>
-                    <li><a href="badges.html">军事</a></li>
-                    <li><a href="mobile.html">科技</a></li>
+                    <li {% if category == 'hot' %}class="active"{% endif %}>
+                        <a href="{{ url_for('home.index') }}?category=hot"><i class="large material-icons">navigation</i>热门</a>
+                    </li>
+                    <li {% if category == 'tech' %}class="active"{% endif %}>
+                        <a href="{{ url_for('home.index') }}?category=tech"><i class="large material-icons">navigation</i>科技</a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -33,7 +36,8 @@
 
     <div class="container">
         <div class="row">
-            {% block content %} {% endblock %}
+            {% block content %}
+            {% endblock %}
             <div class="fixed-action-btn">
                 <a class="btn-floating btn-large red"><i class="large material-icons">mode_edit</i></a>
                 <ul>
