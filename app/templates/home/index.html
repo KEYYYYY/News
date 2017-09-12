@@ -1,21 +1,22 @@
-﻿{% extends 'home/base.html' %}
+{% extends 'home/base.html' %} 
 
 {% block content %}
-<div class="col s12 m12">
-  <div class="card medium">
-      <div class="card-image">
-          <!-- <img src="{{ url_for('static', filename='images/1985132319.png') }}"> -->
-          <span class="card-title">标题</span>
-        </div>
-    <div class="card-content">
-      <p>内容</p>
+    <div class="row">
+        {% for new in news %}
+            <div class="col s12 m4">
+                <div class="card small">
+                    <div class="card-image">
+                        <!-- <img src="{{ url_for('static', filename='images/1985132319.png') }}"> -->
+                        <span class="card-title">{{ new.title }}</span>
+                    </div>
+                    <div class="card-content">
+                        <p>{{ new.content }}</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="#" class="teal-text" title="评论"><i class="material-icons">comment</i></span></a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
     </div>
-    <div class="card-action">
-      <a href="#" class="teal-text" title="评论"><i class="material-icons">comment</i></span></a>
-      <a href="#" class="teal-text" title="编辑"><i class="material-icons">edit</i></span></a>
-      <a href="#" class="teal-text" title="删除"><i class="material-icons">delete</i></span></a>
-      <a href="#" class="teal-text" title="删除"><i class="material-icons">favorite_border</i></span></a>
-    </div>
-  </div>
-</div>
 {% endblock %}

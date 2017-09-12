@@ -19,8 +19,8 @@
                 <a href="#" class="brand-logo">新闻</a>
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
-                    <li {% if category == 'hot' %}class="active"{% endif %}><a href="{{ url_for('home.index') }}?category=hot">热门</a></li>
-                    <li {% if category == 'tech' %}class="active"{% endif %}><a href="{{ url_for('home.index') }}?category=tech">科技</a></li>
+                    <li {% if category == '生活' %}class="active"{% endif %}><a href="{{ url_for('home.index') }}?category=生活">生活</a></li>
+                    <li {% if category == '科技' %}class="active"{% endif %}><a href="{{ url_for('home.index') }}?category=科技">科技</a></li>
                 </ul>
                 <ul class="side-nav" id="mobile-demo">
                     <li {% if category == 'hot' %}class="active"{% endif %}>
@@ -48,7 +48,7 @@
     </div>
 
     <!--  Scripts-->
-    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
     <script src="{{ url_for( 'static', filename='js/materialize.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/init.js') }}"></script>
 </body>
