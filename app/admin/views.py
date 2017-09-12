@@ -49,13 +49,16 @@ def edit(new_id):
     return render_template('admin/edit.html', new=new, new_form=new_form)
 
 
-@admin.route('/delete/<int:new_id>')
+@admin.route('/delete/<int:new_id>', methods=['POST'])
 def delete(new_id):
-    new = New.query.get_or_404(new_id)
-    db.session.delete(new)
+    try:
+        new = New.query.get(new_id)
+    except:
+        return 'No'
+    new.is_valid = False
+    db.session.add(new)
     db.session.commit()
-    flash('删除成功')
-    return redirect(url_for('admin.index'))
+    return 'Yes'
 
 
 @admin.route('/add/', methods=['GET', 'POST'])

@@ -27,7 +27,7 @@
                             <a href="{{ url_for('admin.edit', new_id=new.id) }}" class="waves-effect waves-light btn" title="编辑">
                             <i class="large material-icons">edit</i>
                         </a>
-                            <a href="{{ url_for('admin.delete', new_id=new.id) }}" class="waves-effect waves-light btn red" title="删除">
+                            <a data-url="{{ url_for('admin.delete', new_id=new.id) }}" class="waves-effect waves-light btn red" title="删除">
                             <i class="large material-icons">remove</i>
                         </a>
                         </td>
@@ -42,4 +42,23 @@
             </a>
         </div>
     </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script>
+        $(function() {
+            $(".red").on('click', function() {
+                var url = $(this).attr('data-url')
+                var self = $(this)
+                $.post(url, {}, function(result) {
+                    if (result === 'Yes') {
+                        self.parents('tr').hide()
+                        Materialize.toast('删除成功', 4000)
+                    } else {
+                        Materialize.toast('删除失败', 4000)
+                    }
+                })
+            })
+        })
+    </script>
 {% endblock %}
