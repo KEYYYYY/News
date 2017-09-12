@@ -58,7 +58,7 @@ def delete(new_id):
     return redirect(url_for('admin.index'))
 
 
-@admin.route('/add/')
+@admin.route('/add/', methods=['GET', 'POST'])
 def add():
     types = Type.query.all()
     new_form = NewForm()
@@ -82,4 +82,4 @@ def add():
         db.session.commit()
         flash('添加成功')
         return redirect(url_for('admin.index'))
-    return render_template('admin/add.html', new=new, new_form=new_form)
+    return render_template('admin/add.html', new_form=new_form)
