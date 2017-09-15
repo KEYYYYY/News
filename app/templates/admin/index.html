@@ -10,7 +10,6 @@
                     <th>编号</th>
                     <th>标题</th>
                     <th>类别</th>
-                    <th>浏览量</th>
                     <th>时间</th>
                     <th>操作</th>
                 </tr>
@@ -20,9 +19,8 @@
                     <tr>
                         <td>{{ loop.index }}</td>
                         <td>{{ new.title }}</td>
-                        <td>{{ new.type.name }}</td>
-                        <td>{{ new.view_num }}</td>
-                        <td>{{ new.add_time }}</td>
+                        <td>{{ new.category }}</td>
+                        <td>{{ new.timestamp }}</td>
                         <td>
                             <a href="{{ url_for('admin.edit', new_id=new.id) }}" class="waves-effect waves-light btn" title="编辑">
                             <i class="large material-icons">edit</i>
@@ -35,12 +33,12 @@
                 {% endfor %}
             </tbody>
         </table>
-        {{ macros.pagination_widget(pagination, 'admin.index') }}
+        {# {{ macros.pagination_widget(pagination, 'admin.index') }}
         <div class="fixed-action-btn">
             <a href="{{ url_for('admin.add') }}" class="btn-floating btn-large waves-effect waves-light red">
                 <i class="material-icons">add</i>
             </a>
-        </div>
+        </div> #}
     </div>
 {% endblock %}
 

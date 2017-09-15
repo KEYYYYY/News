@@ -1,6 +1,6 @@
 from flask_script import Manager
 
-from app import create_app, mongo
+from app import create_app, db
 from app.home.models import New
 
 app = create_app()
@@ -11,7 +11,7 @@ manager = Manager(app)
 def make_shell_context():
     return dict(
         app=app,
-        mongo=mongo,
+        db=db,
         New=New
     )
 
