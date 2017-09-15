@@ -1,5 +1,6 @@
 class Config:
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'mysql://root:@localhost:3306/test'
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    MONGODB_DB = 'news'
+    MONGODB_HOST = 'localhost'
+    MONGODB_PORT = 27017
     SECRET_KEY = '763997136'
