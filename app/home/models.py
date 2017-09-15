@@ -15,7 +15,10 @@ class New(db.Document):
     content = db.StringField()
     category = db.StringField(
         max_length=32,
-        choices=('生活', '科技')
+        choices=(
+            ('life', '生活'),
+            ('tech', '科技')
+        )
     )
     comments = db.ListField(db.EmbeddedDocumentField(Comment))
 

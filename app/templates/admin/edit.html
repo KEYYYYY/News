@@ -13,12 +13,12 @@
                 {{ new_form.content.label }}
             </div>
             <div class="input-field">
-                    {{ new_form.add_time(class='validate') }}
-                {{ new_form.add_time.label }}
+                {{ new_form.timestamp(class='validate') }}
+                {{ new_form.timestamp.label }}
             </div>
             <span>
-                {{ new_form.type_id.label }}
-                {{ new_form.type_id(class="browser-default") }}
+                {{ new_form.category.label }}
+                {{ new_form.category(class="browser-default") }}
             </span>
             <p>
                 {{ new_form.is_valid() }}

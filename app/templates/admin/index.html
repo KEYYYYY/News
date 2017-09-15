@@ -33,19 +33,19 @@
                 {% endfor %}
             </tbody>
         </table>
-        {# {{ macros.pagination_widget(pagination, 'admin.index') }}
+        {# {{ macros.pagination_widget(pagination, 'admin.index') }}#}
         <div class="fixed-action-btn">
             <a href="{{ url_for('admin.add') }}" class="btn-floating btn-large waves-effect waves-light red">
                 <i class="material-icons">add</i>
             </a>
-        </div> #}
+        </div>
     </div>
 {% endblock %}
 
 {% block extra_js %}
     <script>
         $(function() {
-            $(".red").on('click', function() {
+            $(".waves-effect.waves-light.btn.red").on('click', function() {
                 // 获取请求链接
                 var url = $(this).attr('data-url')
                 var self = $(this)
