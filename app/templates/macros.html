@@ -1,25 +1,25 @@
 {% macro pagination_widget(pagination, endpoint) %}
-<ul class="pagination">
-    {% if not pagination.has_prev %}
-        <li class="disabled"><a href="#"><i class="material-icons">chevron_left</i></a></li>
-    {% else %}
-        <li class="waves-effect"><a href="{{ url_for(endpoint, page = pagination.page - 1) }}">
-            <i class="material-icons">chevron_left</i></a>
-        </li>
-    {% endif %}
-    {% for p in pagination.iter_pages() %}
-        {% if p == pagination.page %}
-            <li class="active"><a href="{{ url_for(endpoint, page = p) }}">{{ p }}</a></li>
+    <ul class="pagination">
+        {% if not pagination.has_prev %}
+            <li class="disabled"><a href="#"><i class="material-icons">chevron_left</i></a></li>
         {% else %}
-            <li class="waves-effect"><a href="{{ url_for(endpoint, page = p) }}">{{ p }}</a></li>
+            <li class="waves-effect"><a href="{{ url_for(endpoint, page = pagination.page - 1) }}">
+                <i class="material-icons">chevron_left</i></a>
+            </li>
         {% endif %}
-    {% endfor %}
-    {% if not pagination.has_next %}
-        <li class="disabled"><a href="#"><i class="material-icons">chevron_right</i></a></li>
-    {% else %}
-        <li class="waves-effect"><a href="{{ url_for(endpoint, page = pagination.page + 1) }}">
-            <i class="material-icons">chevron_right</i></a>
-        </li>
-    {% endif %}
-</ul>
+        {% for p in pagination.iter_pages() %}
+            {% if p == pagination.page %}
+                <li class="active"><a href="{{ url_for(endpoint, page = p) }}">{{ p }}</a></li>
+            {% else %}
+                <li class="waves-effect"><a href="{{ url_for(endpoint, page = p) }}">{{ p }}</a></li>
+            {% endif %}
+        {% endfor %}
+        {% if not pagination.has_next %}
+            <li class="disabled"><a href="#"><i class="material-icons">chevron_right</i></a></li>
+        {% else %}
+            <li class="waves-effect"><a href="{{ url_for(endpoint, page = pagination.page + 1) }}">
+                <i class="material-icons">chevron_right</i></a>
+            </li>
+        {% endif %}
+    </ul>
 {% endmacro %}

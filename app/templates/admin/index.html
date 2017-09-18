@@ -33,7 +33,7 @@
                 {% endfor %}
             </tbody>
         </table>
-        {# {{ macros.pagination_widget(pagination, 'admin.index') }}#}
+        {{ macros.pagination_widget(pagination, 'admin.index') }}
         <div class="fixed-action-btn">
             <a href="{{ url_for('admin.add') }}" class="btn-floating btn-large waves-effect waves-light red">
                 <i class="material-icons">add</i>

@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from flask import Blueprint, render_template, flash, redirect, url_for
+from flask import Blueprint, render_template, flash, redirect, url_for, request
 
 from app.home.models import New
 from app.admin.forms import NewForm
@@ -10,19 +10,17 @@ admin = Blueprint('admin', __name__)
 
 @admin.route('/')
 def index():
-    news = New.objects.all()
-    # page = request.args.get('page', 1, type=int)
-    # pagination = New.objects.paginate(
-    #     page,
-    #     per_page=5
-    # )
-    # news = pagination.items
-    # return render_template(
-    #     'admin/index.html',
-    #     news=news,
-    #     pagination=pagination
-    # )
-    return render_template('admin/index.html', news=news)
+    page = request.args.get('page', 1, type=int)
+    pagination = New.objects.paginate(
+        page,
+        per_page=5
+    )
+    news = pagination.items
+    return render_template(
+        'admin/index.html',
+        news=news,
+        pagination=pagination
+    )
 
 
 @admin.route('/edit/<new_id>/', methods=['GET', 'POST'])
@@ -30,7 +28,7 @@ def edit(new_id):
     new = New.objects.get_or_404(id=new_id)
     new_form = NewForm()
     # 必须设置在validate_on_submit前面
-    new_form.category.choices = [('life', '生活'), ('tech', '科技')]
+    new_form.category.choices = [('生活', '生活'), ('科技', '科技')]
     if new_form.validate_on_submit():
         New.objects(id=new_id).update(
             title=new_form.title.data,
@@ -64,7 +62,7 @@ def delete(new_id):
 def add():
     new_form = NewForm()
     # 必须设置在validate_on_submit前面
-    new_form.category.choices = [('life', '生活'), ('tech', '科技')]
+    new_form.category.choices = [('生活', '生活'), ('科技', '科技')]
     new_form.timestamp.data = datetime.now()
     if new_form.validate_on_submit():
         New(
