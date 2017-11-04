@@ -1,6 +1,10 @@
+import os
+
+BASE_DIR = os.path.abspath('.')
+
+
 class Config:
     DEBUG = True
-    MONGODB_DB = 'news'
-    MONGODB_HOST = 'localhost'
-    MONGODB_PORT = 27017
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR, 'data.db')
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
     SECRET_KEY = '763997136'

@@ -1,7 +1,7 @@
 from flask_script import Manager
 
 from app import create_app, db
-from app.home.models import New
+from app.models import News, Category
 
 app = create_app()
 manager = Manager(app)
@@ -12,7 +12,8 @@ def make_shell_context():
     return dict(
         app=app,
         db=db,
-        New=New
+        News=News,
+        Category=Category,
     )
 
 

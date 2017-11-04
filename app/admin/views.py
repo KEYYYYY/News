@@ -2,8 +2,8 @@ from datetime import datetime
 
 from flask import Blueprint, render_template, flash, redirect, url_for, request
 
-from app.home.models import New
-from app.admin.forms import NewForm
+from app.models import News
+# from app.admin.forms import NewsForm
 
 admin = Blueprint('admin', __name__)
 
@@ -11,51 +11,51 @@ admin = Blueprint('admin', __name__)
 @admin.route('/')
 def index():
     page = request.args.get('page', 1, type=int)
-    pagination = New.objects.paginate(
+    pagination = News.query.paginate(
         page,
-        per_page=5
+        per_page=10,
     )
     news = pagination.items
     return render_template(
         'admin/index.html',
-        news=news,
+        news_list=news,
         pagination=pagination
     )
 
 
-@admin.route('/edit/<new_id>/', methods=['GET', 'POST'])
-def edit(new_id):
-    new = New.objects.get_or_404(id=new_id)
-    new_form = NewForm()
-    # 必须设置在validate_on_submit前面
-    new_form.category.choices = [('生活', '生活'), ('科技', '科技')]
-    if new_form.validate_on_submit():
-        New.objects(id=new_id).update(
-            title=new_form.title.data,
-            content=new_form.content.data,
-            timestamp=new_form.timestamp.data,
-            is_valid=new_form.is_valid.data,
-            category=new_form.category.data
-        )
-        flash('修改成功')
-        return redirect(url_for('admin.index'))
-    new_form.title.data = new.title
-    new_form.content.data = new.content
-    new_form.timestamp.data = new.timestamp
-    new_form.category.data = new.category
-    new_form.is_valid.data = new.is_valid
-    return render_template('admin/edit.html', new=new, new_form=new_form)
+# @admin.route('/edit/<new_id>/', methods=['GET', 'POST'])
+# def edit(new_id):
+#     new = News.objects.get_or_404(id=new_id)
+#     new_form = NewsForm()
+#     # 必须设置在validate_on_submit前面
+#     new_form.category.choices = [('生活', '生活'), ('科技', '科技')]
+#     if new_form.validate_on_submit():
+#         News.objects(id=new_id).update(
+#             title=new_form.title.data,
+#             content=new_form.content.data,
+#             timestamp=new_form.timestamp.data,
+#             is_valid=new_form.is_valid.data,
+#             category=new_form.category.data
+#         )
+#         flash('修改成功')
+#         return redirect(url_for('admin.index'))
+#     new_form.title.data = new.title
+#     new_form.content.data = new.content
+#     new_form.timestamp.data = new.timestamp
+#     new_form.category.data = new.category
+#     new_form.is_valid.data = new.is_valid
+#     return render_template('admin/edit.html', new=new, new_form=new_form)
 
 
-@admin.route('/delete/<new_id>', methods=['POST'])
-def delete(new_id):
-    try:
-        new = New.objects.get_or_404(id=new_id)
-    except:
-        return 'No'
-    new.is_valid = False
-    New.objects(id=new_id).delete()
-    return 'Yes'
+# @admin.route('/delete/<new_id>', methods=['POST'])
+# def delete(new_id):
+#     try:
+#         new = New.objects.get_or_404(id=new_id)
+#     except:
+#         return 'No'
+#     new.is_valid = False
+#     New.objects(id=new_id).delete()
+#     return 'Yes'
 
 
 @admin.route('/add/', methods=['GET', 'POST'])

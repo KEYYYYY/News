@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -22,9 +22,9 @@
     <script src="https://cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
     <script src="{{ url_for( 'static', filename='js/materialize.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/init.js') }}"></script>
-    {% for message in get_flashed_messages() %}
+    <!-- {% for message in get_flashed_messages() %}
         <script>Materialize.toast('{{ message }}', 4000)</script>
-    {% endfor %}
+    {% endfor %} -->
     {% block extra_js %}
     {% endblock %}
 </body>

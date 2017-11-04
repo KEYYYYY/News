@@ -5,7 +5,7 @@ from wtforms import (
 from wtforms.validators import DataRequired
 
 
-class NewForm(FlaskForm):
+class NewsForm(FlaskForm):
     title = StringField('标题', validators=[
         DataRequired(message='这是必填字段')
     ])

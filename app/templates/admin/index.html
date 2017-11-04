@@ -15,29 +15,22 @@
                 </tr>
             </thead>
             <tbody>
-                {% for new in news %}
+                {% for news in news_list %}
                     <tr>
-                        <td>{{ loop.index }}</td>
-                        <td>{{ new.title }}</td>
-                        <td>{{ new.category }}</td>
-                        <td>{{ new.timestamp }}</td>
-                        <td>
-                            <a href="{{ url_for('admin.edit', new_id=new.id) }}" class="waves-effect waves-light btn" title="编辑">
-                            <i class="large material-icons">edit</i>
-                        </a>
-                            <a data-url="{{ url_for('admin.delete', new_id=new.id) }}" class="waves-effect waves-light btn red" title="删除">
-                            <i class="large material-icons">remove</i>
-                        </a>
-                        </td>
+                        <th>{{ news.id }}</th>
+                        <th>{{ news.title }}</th>
+                        <th>{{ news.category.name }}</th>
+                        <th>{{ news.add_time.strftime('%Y-%m-%d') }}</th>
+                        <th>
+                            <a class="waves-effect waves-light btn"><i class="material-icons">edit</i></a>
+                            <a class="waves-effect waves-light btn red"><i class="material-icons">remove</i></a>
+                        </th>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
         {{ macros.pagination_widget(pagination, 'admin.index') }}
         <div class="fixed-action-btn">
-            <a href="{{ url_for('admin.add') }}" class="btn-floating btn-large waves-effect waves-light red">
-                <i class="material-icons">add</i>
-            </a>
         </div>
     </div>
 {% endblock %}
@@ -45,7 +38,7 @@
 {% block extra_js %}
     <script>
         $(function() {
-            $(".waves-effect.waves-light.btn.red").on('click', function() {
+            $('.waves-effect.waves-light.btn.red').on('click', function() {
                 // 获取请求链接
                 var url = $(this).attr('data-url')
                 var self = $(this)
@@ -55,7 +48,7 @@
                     $.post(url, {}, function(result) {
                         // 处理结果
                         if (result === 'Yes') {
-                            self.parents('tr').hide()
+                            self.parents('tr').hide(1000)
                             Materialize.toast('删除成功', 4000)
                         } else {
                             Materialize.toast('删除失败', 4000)
