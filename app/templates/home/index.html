@@ -1,22 +1,25 @@
 {% extends 'home/base.html' %} 
 
+{% import 'macros.html' as macros %}
+
 {% block content %}
     <div class="row">
-        {% for new in news %}
+        {% for news in news_list %}
             <div class="col s12 m4">
                 <div class="card small">
                     <div class="card-image">
                         <!-- <img src="{{ url_for('static', filename='images/1985132319.png') }}"> -->
-                        <span class="card-title">{{ new.title }}</span>
+                        <span class="card-title">{{ news.title }}</span>
                     </div>
                     <div class="card-content">
-                        <p>{{ new.content }}</p>
+                        <p>{{ news.title }}</p>
                     </div>
                     <div class="card-action">
-                        <a href="#" class="teal-text" title="评论"><i class="material-icons">comment</i></span></a>
+                        <a href="#" class="red-text" title="评论"><i class="material-icons">comment</i></span></a>
                     </div>
                 </div>
             </div>
         {% endfor %}
     </div>
+    {{ macros.pagination_widget(pagination, 'home.index') }}
 {% endblock %}

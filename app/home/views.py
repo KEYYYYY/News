@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request
 
-from app.home.models import New
+from app.models import News
 
 home = Blueprint('home', __name__)
 
@@ -8,11 +8,18 @@ home = Blueprint('home', __name__)
 @home.route('/')
 def index():
     category_name = request.args.get('category', '生活')
-    news = New.objects(category=category_name).all()
+    page = request.args.get('page', 1, type=int)
+    pagination = News.query.order_by(
+        News.add_time.desc()
+    ).paginate(
+        page,
+        per_page=6,
+    )
     return render_template(
         'home/index.html',
+        pagination=pagination,
         category=category_name,
-        news=news
+        news_list=pagination.items
     )
 
 

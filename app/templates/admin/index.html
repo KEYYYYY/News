@@ -24,7 +24,7 @@
                         <th>{{ news.is_valid }}</th>
                         <th>{{ news.add_time.strftime('%Y-%m-%d') }}</th>
                         <th>
-                            <a class="waves-effect waves-light btn"><i class="material-icons">edit</i></a>
+                            <a href="{{ url_for('admin.edit', news_id=news.id) }}" class="waves-effect waves-light btn"><i class="material-icons">edit</i></a>
                             <a data-url="{{ url_for('admin.delete', news_id=news.id) }}" class="waves-effect waves-light btn red">
                                 <i class="material-icons">remove</i>
                             </a>

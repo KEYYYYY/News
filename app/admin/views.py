@@ -24,28 +24,27 @@ def index():
     )
 
 
-# @admin.route('/edit/<new_id>/', methods=['GET', 'POST'])
-# def edit(new_id):
-#     new = News.objects.get_or_404(id=new_id)
-#     news_from = NewsForm()
-#     # 必须设置在validate_on_submit前面
-#     news_from.category.choices = [('生活', '生活'), ('科技', '科技')]
-#     if news_from.validate_on_submit():
-#         News.objects(id=new_id).update(
-#             title=news_from.title.data,
-#             content=news_from.content.data,
-#             timestamp=news_from.timestamp.data,
-#             is_valid=news_from.is_valid.data,
-#             category=news_from.category.data
-#         )
-#         flash('修改成功')
-#         return redirect(url_for('admin.index'))
-#     news_from.title.data = new.title
-#     news_from.content.data = new.content
-#     news_from.timestamp.data = new.timestamp
-#     news_from.category.data = new.category
-#     news_from.is_valid.data = new.is_valid
-#     return render_template('admin/edit.html', new=new, news_from=news_from)
+@admin.route('/edit/<news_id>/', methods=['GET', 'POST'])
+def edit(news_id):
+    news = News.query.get_or_404(news_id)
+    news_form = NewsForm()
+    # 必须设置在validate_on_submit前面
+    choices = Category.query.all()
+    news_form.category.choices = [(item.id, item.name) for item in choices]
+    if news_form.validate_on_submit():
+        news.title = news_form.title.data
+        news.content = news_form.content.data
+        news.is_valid = news_form.is_valid.data
+        news.category_id = news_form.category.data
+        db.session.add(news)
+        db.session.commit()
+        flash('修改成功')
+        return redirect(url_for('admin.index'))
+    news_form.title.data = news.title
+    news_form.content.data = news.content
+    news_form.category.data = news.category_id
+    news_form.is_valid.data = news.is_valid
+    return render_template('admin/edit.html', news_form=news_form)
 
 
 @admin.route('/delete/<news_id>', methods=['POST'])

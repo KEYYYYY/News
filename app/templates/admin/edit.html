@@ -3,28 +3,31 @@
 {% block content %}
     <div class="card-panel">
         <form method="POST">
-            {{ news_from.csrf_token }}
+            {{ news_form.csrf_token }}
             <div class="input-field">
-                {{ news_from.title(class='validate') }}
-                {{ news_from.title.label }}
+                {{ news_form.title(class='validate') }}
+                {{ news_form.title.label }}
             </div>
             <div class="input-field">
-                {{ news_from.content(class='validate') }}
-                {{ news_from.content.label }}
+                {{ news_form.content(class='materialize-textarea') }}
+                {{ news_form.content.label }}
             </div>
             <div class="input-field">
-                {{ news_from.timestamp(class='validate') }}
-                {{ news_from.timestamp.label }}
+                {{ news_form.category() }}
+                {{ news_form.category.label }}
             </div>
-            <span>
-                {{ news_from.category.label }}
-                {{ news_from.category(class="browser-default") }}
-            </span>
             <p>
-                {{ news_from.is_valid() }}
-                {{ news_from.is_valid.label }}
+                {{ news_form.is_valid() }}
+                {{ news_form.is_valid.label }}
             </p>
-            {{ news_from.submit(class='btn waves-effect waves-light') }}
+            {{ news_form.submit(class='btn waves-effect waves-light') }}
         </form>
     </div>
+{% endblock %}
+{% block extra_js %}
+<script>
+    $(document).ready(function() {
+        $('select').material_select()
+    })
+</script>
 {% endblock %}
