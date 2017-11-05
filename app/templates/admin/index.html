@@ -10,6 +10,7 @@
                     <th>编号</th>
                     <th>标题</th>
                     <th>类别</th>
+                    <th>状态</th>
                     <th>时间</th>
                     <th>操作</th>
                 </tr>
@@ -17,13 +18,16 @@
             <tbody>
                 {% for news in news_list %}
                     <tr>
-                        <th>{{ news.id }}</th>
+                        <th>{{ loop.index }}</th>
                         <th>{{ news.title }}</th>
                         <th>{{ news.category.name }}</th>
+                        <th>{{ news.is_valid }}</th>
                         <th>{{ news.add_time.strftime('%Y-%m-%d') }}</th>
                         <th>
                             <a class="waves-effect waves-light btn"><i class="material-icons">edit</i></a>
-                            <a class="waves-effect waves-light btn red"><i class="material-icons">remove</i></a>
+                            <a data-url="{{ url_for('admin.delete', news_id=news.id) }}" class="waves-effect waves-light btn red">
+                                <i class="material-icons">remove</i>
+                            </a>
                         </th>
                     </tr>
                 {% endfor %}
@@ -31,14 +35,17 @@
         </table>
         {{ macros.pagination_widget(pagination, 'admin.index') }}
         <div class="fixed-action-btn">
+            <a href="{{ url_for('admin.add') }}" class="btn-floating btn-large red">
+                <i class="large material-icons">add</i>
+            </a>
         </div>
     </div>
 {% endblock %}
 
 {% block extra_js %}
     <script>
-        $(function() {
-            $('.waves-effect.waves-light.btn.red').on('click', function() {
+        $(document).ready(function () {
+            $('.waves-effect.waves-light.btn.red').click(function() {
                 // 获取请求链接
                 var url = $(this).attr('data-url')
                 var self = $(this)
@@ -47,7 +54,7 @@
                     // AJAX调用
                     $.post(url, {}, function(result) {
                         // 处理结果
-                        if (result === 'Yes') {
+                        if (result === 'OK') {
                             self.parents('tr').hide(1000)
                             Materialize.toast('删除成功', 4000)
                         } else {

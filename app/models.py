@@ -10,6 +10,7 @@ class News(db.Model):
     title = db.Column(db.String(128), nullable=False)
     content = db.Column(db.Text)
     add_time = db.Column(db.DateTime, default=datetime.now)
+    is_valid = db.Column(db.Boolean, default=False)
     category_id = db.Column(db.Integer, db.ForeignKey('categorys.id'))
 
     def __repr__(self):

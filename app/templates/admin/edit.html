@@ -3,28 +3,28 @@
 {% block content %}
     <div class="card-panel">
         <form method="POST">
-            {{ new_form.csrf_token }}
+            {{ news_from.csrf_token }}
             <div class="input-field">
-                {{ new_form.title(class='validate') }}
-                {{ new_form.title.label }}
+                {{ news_from.title(class='validate') }}
+                {{ news_from.title.label }}
             </div>
             <div class="input-field">
-                {{ new_form.content(class='validate') }}
-                {{ new_form.content.label }}
+                {{ news_from.content(class='validate') }}
+                {{ news_from.content.label }}
             </div>
             <div class="input-field">
-                {{ new_form.timestamp(class='validate') }}
-                {{ new_form.timestamp.label }}
+                {{ news_from.timestamp(class='validate') }}
+                {{ news_from.timestamp.label }}
             </div>
             <span>
-                {{ new_form.category.label }}
-                {{ new_form.category(class="browser-default") }}
+                {{ news_from.category.label }}
+                {{ news_from.category(class="browser-default") }}
             </span>
             <p>
-                {{ new_form.is_valid() }}
-                {{ new_form.is_valid.label }}
+                {{ news_from.is_valid() }}
+                {{ news_from.is_valid.label }}
             </p>
-            {{ new_form.submit(class='btn waves-effect waves-light') }}
+            {{ news_from.submit(class='btn waves-effect waves-light') }}
         </form>
     </div>
 {% endblock %}
