@@ -6,20 +6,33 @@
     <div class="row">
         {% for news in news_list %}
             <div class="col s12 m4">
-                <div class="card small">
+                <div class="card">
                     <div class="card-image">
-                        <!-- <img src="{{ url_for('static', filename='images/1985132319.png') }}"> -->
-                        <span class="card-title">{{ news.title }}</span>
+                        <img src="{{ news.photo_t_url }}">
+                        <a class="btn-floating halfway-fab waves-effect waves-light red">
+                            <i class="material-icons">add</i>
+                        </a>
                     </div>
                     <div class="card-content">
+                        <div class="card-title"><a href="" class="teal-text">{{ news.title }}</a></div>
                         <p>{{ news.title }}</p>
                     </div>
                     <div class="card-action">
-                        <a href="#" class="red-text" title="评论"><i class="material-icons">comment</i></span></a>
+                        <a href="#" class="teal-text" title="评论数"><i class="material-icons">comment</i>100</a>
+                        <a href="#" class="teal-text" title="浏览量"><i class="material-icons">visibility</i>100</a>
+                        <a href="#" class="teal-text" title="点赞数"><i class="material-icons">thumb_up</i>100</a>
                     </div>
                 </div>
             </div>
         {% endfor %}
     </div>
     {{ macros.pagination_widget(pagination, 'home.index') }}
+    {% block extra_js %}
+        <script>
+            $('.btn-floating.halfway-fab.waves-effect.waves-light.red').click(function () {
+                Materialize.toast('收藏成功', 4000)
+                $(this).children('.material-icons').text('favorite')
+            })
+        </script>
+    {% endblock %}
 {% endblock %}

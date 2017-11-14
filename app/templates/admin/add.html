@@ -1,8 +1,9 @@
 {% extends 'admin/base.html' %}
 
 {% block content %}
+{{ news_form.errors }}
     <div class="card-panel">
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
             {{ news_form.csrf_token }}
             <div class="input-field">
                 {{ news_form.title(class='validate') }}
@@ -16,6 +17,15 @@
                 {{ news_form.category() }}
                 {{ news_form.category.label }}
             </div>
+            <div class="file-field input-field">
+                <div class="btn">
+                  <span>图片</span>
+                  {{ news_form.photo() }}
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text">
+                </div>
+            </div>
             <p>
                 {{ news_form.is_valid() }}
                 {{ news_form.is_valid.label }}
@@ -24,6 +34,7 @@
         </form>
     </div>
 {% endblock %}
+
 {% block extra_js %}
 <script>
     $(document).ready(function() {

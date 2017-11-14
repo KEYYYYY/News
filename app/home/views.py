@@ -7,9 +7,12 @@ home = Blueprint('home', __name__)
 
 @home.route('/')
 def index():
-    category_name = request.args.get('category', '生活')
+    category_id = request.args.get('category', 1, type=int)
     page = request.args.get('page', 1, type=int)
-    pagination = News.query.order_by(
+    pagination = News.query.filter_by(
+        is_valid=True,
+        category_id=category_id
+    ).order_by(
         News.add_time.desc()
     ).paginate(
         page,
@@ -18,8 +21,8 @@ def index():
     return render_template(
         'home/index.html',
         pagination=pagination,
-        category=category_name,
-        news_list=pagination.items
+        category_id=category_id,
+        news_list=pagination.items,
     )
 
 

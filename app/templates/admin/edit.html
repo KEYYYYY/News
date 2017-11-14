@@ -1,6 +1,7 @@
 {% extends 'admin/base.html' %}
 
 {% block content %}
+{{ news_form.errors }}
     <div class="card-panel">
         <form method="POST">
             {{ news_form.csrf_token }}
@@ -16,6 +17,7 @@
                 {{ news_form.category() }}
                 {{ news_form.category.label }}
             </div>
+            {{ news_form.photo() }}
             <p>
                 {{ news_form.is_valid() }}
                 {{ news_form.is_valid.label }}
@@ -24,6 +26,7 @@
         </form>
     </div>
 {% endblock %}
+
 {% block extra_js %}
 <script>
     $(document).ready(function() {
