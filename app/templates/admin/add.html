@@ -1,7 +1,11 @@
 {% extends 'admin/base.html' %}
 
+{% block extra_head %}
+    {{ simplemde.css }}
+    {{ simplemde.js }}
+{% endblock %}
+
 {% block content %}
-{{ news_form.errors }}
     <div class="card-panel">
         <form method="POST" enctype="multipart/form-data">
             {{ news_form.csrf_token }}
@@ -10,8 +14,8 @@
                 {{ news_form.title.label }}
             </div>
             <div class="input-field">
-                {{ news_form.content(class='materialize-textarea') }}
-                {{ news_form.content.label }}
+                {{ news_form.content() }}
+                {{ simplemde.load }}
             </div>
             <div class="input-field">
                 {{ news_form.category() }}

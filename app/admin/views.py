@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, flash, redirect, url_for, request
+import markdown
 
 from app import db, photos
 from app.models import News, Category
@@ -39,6 +40,7 @@ def edit(news_id):
             news.photo_t = create_thumbnail(photo_name)
         news.title = news_form.title.data
         news.content = news_form.content.data
+        news.content_html = markdown.markdown(news_form.content.data)
         news.is_valid = news_form.is_valid.data
         news.category_id = news_form.category.data
         db.session.add(news)
@@ -76,6 +78,7 @@ def add():
             news = News(
                 title=news_form.title.data,
                 content=news_form.content.data,
+                content_html=markdown.markdown(news_form.content.data),
                 is_valid=news_form.is_valid.data,
                 category_id=news_form.category.data,
                 photo=photo_name,
@@ -85,6 +88,7 @@ def add():
             news = News(
                 title=news_form.title.data,
                 content=news_form.content.data,
+                content_html=markdown.markdown(news_form.content.data),
                 is_valid=news_form.is_valid.data,
                 category_id=news_form.category.data,
             )

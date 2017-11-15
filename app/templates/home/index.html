@@ -15,7 +15,7 @@
                     </div>
                     <div class="card-content">
                         <div class="card-title"><a href="" class="teal-text">{{ news.title }}</a></div>
-                        <p>{{ news.title }}</p>
+                        <p>{{ news.content_html | safe }}</p>
                     </div>
                     <div class="card-action">
                         <a href="#" class="teal-text" title="评论数"><i class="material-icons">comment</i>100</a>

@@ -10,6 +10,7 @@ class News(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(128), nullable=False)
     content = db.Column(db.Text)
+    content_html = db.Column(db.Text)
     add_time = db.Column(db.DateTime, default=datetime.now)
     is_valid = db.Column(db.Boolean, default=False)
     # 图片名
