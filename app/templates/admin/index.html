@@ -55,7 +55,7 @@
                     $.post(url, {}, function(result) {
                         // 处理结果
                         if (result === 'OK') {
-                            self.parents('tr').hide(1000)
+                            // self.parents('tr').hide(1000)
                             Materialize.toast('删除成功', 4000)
                         } else {
                             Materialize.toast('删除失败', 4000)

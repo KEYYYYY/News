@@ -33,12 +33,14 @@ def edit(news_id):
     choices = Category.query.all()
     news_form.category.choices = [(item.id, item.name) for item in choices]
     if news_form.validate_on_submit():
-        photo_name = photos.save(request.files['photo'])
+        if news_form.photo.data is not None:
+            photo_name = photos.save(news_form.photo.data)
+            news.photo = photo_name,
+            news.photo_t = create_thumbnail(photo_name)
         news.title = news_form.title.data
         news.content = news_form.content.data
         news.is_valid = news_form.is_valid.data
         news.category_id = news_form.category.data
-        news.photo_url = photos.url(photo_name)
         db.session.add(news)
         db.session.commit()
         flash('修改成功')
@@ -47,7 +49,6 @@ def edit(news_id):
     news_form.content.data = news.content
     news_form.category.data = news.category_id
     news_form.is_valid.data = news.is_valid
-    news_form.photo.data = news.photo_url
     return render_template('admin/edit.html', news_form=news_form)
 
 
