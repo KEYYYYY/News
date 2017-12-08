@@ -1,6 +1,7 @@
 .idea/
 *.pyc
+data.sqlite
 env/
 .vscode
-data.db
-/uploads
+db.sqlite3
+media/
