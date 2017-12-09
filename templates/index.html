@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+    <main class="col-md-8">
+        {% for article in articles %}
+            <article class="post post-1">
+                <header class="entry-header">
+                    <h1 class="entry-title">
+                        <a href="single.html">{{ article.title }}</a>
+                    </h1>
+                    <div class="entry-meta">
+                        <span class="post-category">
+                            <a href="#">{{ article.category.name }}</a>
+                        </span>
+                        <span class="post-date">
+                            <a href="#">
+                                <time class="entry-date">{{ article.add_time }}</time>
+                            </a>
+                        </span>
+                        <span class="post-author">
+                            <a href="#">200 OK</a>
+                        </span>
+                        <span class="comments-link">
+                            <a href="#">{{ article.comment_count }} 评论</a>
+                        </span>
+                        <span class="views-count">
+                            <a href="#">{{ article.view_count }} 阅读</a>
+                        </span>
+                    </div>
+                </header>
+                <div class="entry-content clearfix">
+                    <p>
+                        {{ article.content_html|safe|slice:"100" }}
+                        ...
+                    </p>
+                    <div class="read-more cl-effect-14">
+                        <a href="{% url 'detail' article_id=article.id %}" class="more-link">继续阅读
+                            <span class="meta-nav">→</span>
+                        </a>
+                    </div>
+                </div>
+            </article>
+        {% empty %}
+            <div class="no-post">暂时还没有发布的文章！</div>
+        {% endfor %}
+    </main>
+{% endblock %}

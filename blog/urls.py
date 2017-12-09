@@ -16,7 +16,10 @@ Including another URLconf
 from django.conf.urls import url
 
 import xadmin
+from articles.views import IndexView, DetailView
 
 urlpatterns = [
     url(r'^admin/', xadmin.site.urls),
+    url(r'^$', IndexView.as_view(), name='index'),
+    url(r'^detail/(?P<article_id>\d+)$', DetailView.as_view(), name='detail'),
 ]
