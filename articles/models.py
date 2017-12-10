@@ -1,6 +1,7 @@
 from datetime import datetime
 
 from django.db import models
+from django.utils.html import strip_tags
 import markdown
 
 
@@ -29,18 +30,26 @@ class Article(models.Model):
     content = models.TextField(null=True, blank=True, verbose_name='正文')
     content_html = models.TextField(
         null=True, blank=True, verbose_name='正文MarkDown')
-    view_count = models.IntegerField(default=0, verbose_name='阅读量')
+    excerpt = models.CharField(
+        max_length=200, blank=True, null=True, verbose_name='摘要')
+    view_count = models.PositiveIntegerField(
+        default=0, verbose_name='阅读量')
     comment_count = models.IntegerField(default=0, verbose_name='评论数')
     add_time = models.DateTimeField(default=datetime.now, verbose_name='发表日期')
+
+    def increase_views(self):
+        self.view_count += 1
+        self.save(update_fields=['view_count'])
 
     class Meta:
         ordering = ('-add_time',)
         verbose_name = '文章'
         verbose_name_plural = verbose_name
 
-    # 重载save方法，保存的同时讲内容转化为html代码保存
-    def save(self, force_insert=False, force_update=False, using=None,
-             update_fields=None):
+    # 重载save方法
+    # 保存的同时讲内容转化为html代码保存
+    # 生成摘要信息
+    def save(self, *args, **kwargs):
         self.content_html = markdown.markdown(
             self.content,
             extensions=[
@@ -49,7 +58,8 @@ class Article(models.Model):
                 'markdown.extensions.toc',
             ]
         )
-        super(Article, self).save()
+        self.excerpt = strip_tags(self.content_html[:100])
+        super(Article, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title
