@@ -52,6 +52,8 @@ class DetailView(View):
 
     def get(self, request, article_id):
         article = get_object_or_404(Article, id=article_id)
+        article.view_count += 1
+        article.save()
         comment_form = CommentForm()
         return render(request, 'detail.html', {
             'article': article,

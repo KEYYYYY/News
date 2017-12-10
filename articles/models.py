@@ -59,7 +59,8 @@ class Comment(models.Model):
     """
     评论模型
     """
-    article = models.ForeignKey(Article, related_name='comments')
+    article = models.ForeignKey(
+        Article, related_name='comments', verbose_name='文章')
     username = models.CharField(max_length=32, verbose_name='用户名')
     email = models.EmailField(verbose_name='邮箱')
     url = models.URLField(null=True, blank=True, verbose_name='链接')

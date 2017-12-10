@@ -61,7 +61,7 @@
             </form>
             <div class="comment-list-panel">
                 <h3>评论列表，共
-                    <span>0</span> 条评论</h3>
+                    <span>{{ article.comments.all.count }}</span> 条评论</h3>
                 <ul class="comment-list list-unstyled">
                     {% for comment in article.comments.all %}
                         <li class="comment-item">

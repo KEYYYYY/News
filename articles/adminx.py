@@ -1,5 +1,5 @@
 import xadmin
-from articles.models import Category, Article
+from articles.models import Category, Article, Comment
 
 
 class CategoryAdmin:
@@ -14,5 +14,12 @@ class ArticleAdmin:
     list_filter = ['title', 'category', 'add_time']
 
 
+class CommentAdmin:
+    list_display = ['article', 'username', 'email', 'add_time']
+    search_fields = ['article', 'email', 'add_time']
+    list_filter = ['article', 'username', 'email', 'add_time']
+
+
 xadmin.site.register(Category, CategoryAdmin)
 xadmin.site.register(Article, ArticleAdmin)
+xadmin.site.register(Comment, CommentAdmin)
