@@ -1,7 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic.base import View
 
 from articles.models import Article, Category
+from articles.forms import CommentForm
 
 
 class IndexView(View):
@@ -51,12 +52,25 @@ class DetailView(View):
 
     def get(self, request, article_id):
         article = get_object_or_404(Article, id=article_id)
+        comment_form = CommentForm()
         return render(request, 'detail.html', {
             'article': article,
+            'form': comment_form,
         })
 
-    def post(self, request):
+    def post(self, request, article_id):
         """
         发表评论
         """
-        pass
+
+        article = get_object_or_404(Article, id=article_id)
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.article = article
+            comment.save()
+            return redirect('detail', article_id=article_id)
+        return render(request, 'detail.html', {
+            'article': article,
+            'form': comment_form,
+        })

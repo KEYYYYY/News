@@ -70,3 +70,6 @@ class Comment(models.Model):
         ordering = ('-add_time',)
         verbose_name = '评论'
         verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.username
