@@ -1,9 +1,11 @@
 {% load staticfiles %}
+<!-- 加载自定义模版标签 -->
+{% load tags %}
 <!DOCTYPE html>
 <html>
 
 <head>
-    <title>Black &amp; White</title>
+    <title>200 &amp; OK</title>
 
     <!-- meta -->
     <meta charset="UTF-8">
@@ -31,7 +33,7 @@
                     <div class="logo">
                         <h1>
                             <a href="{% url 'index' %}">
-                                <b>Black</b> &amp; White</a>
+                                <b>200</b> &amp; OK</a>
                         </h1>
                     </div>
                 </div>
@@ -77,12 +79,6 @@
             </div>
         </header>
     </div>
-    <div class="copyrights">Collect from
-        <a href="http://www.cssmoban.com/">网页模板</a>
-    </div>
-    <div class="copyrights">Modified by
-        <a href="http://zmrenwu.com/">追梦人物的博客</a>
-    </div>
 
     <div class="content-body">
         <div class="container">
@@ -93,50 +89,37 @@
                     <div class="widget widget-recent-posts">
                         <h3 class="widget-title">最新文章</h3>
                         <ul>
-                            <li>
-                                <a href="#">Django 博客开发入门教程：前言</a>
-                            </li>
-                            <li>
-                                <a href="#">Django 博客使用 Markdown 自动生成文章目录</a>
-                            </li>
-                            <li>
-                                <a href="#">部署 Django 博客</a>
-                            </li>
+                            {% get_recent_articles as articles %}
+                            {% for article in articles %}
+                                <li>
+                                    <a href="{% url 'detail' article_id=article.id %}">{{ article.title }}</a>
+                                </li>
+                            {% endfor %}
                         </ul>
                     </div>
                     <div class="widget widget-archives">
                         <h3 class="widget-title">归档</h3>
                         <ul>
-                            <li>
-                                <a href="#">2017 年 5 月</a>
-                            </li>
-                            <li>
-                                <a href="#">2017 年 4 月</a>
-                            </li>
-                            <li>
-                                <a href="#">2017 年 3 月</a>
-                            </li>
+                            {% get_archives as archives %}
+                            {% for archive in archives %}
+                                <li>
+                                    <a href="{% url 'archives' year=archive.year month=archive.month %}">{{ archive.year }} 年 {{ archive.month }} 月</a>
+                                </li>
+                            {% endfor %}
                         </ul>
                     </div>
 
                     <div class="widget widget-category">
                         <h3 class="widget-title">分类</h3>
                         <ul>
-                            <li>
-                                <a href="#">Django 博客教程
-                                    <span class="post-count">(13)</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">Python 教程
-                                    <span class="post-count">(11)</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">Django 用户认证
-                                    <span class="post-count">(8)</span>
-                                </a>
-                            </li>
+                            {% get_categorys as categorys %}
+                            {% for category in categorys %}
+                                <li>
+                                    <a href="{% url 'category' category_id=category.id %}">{{ category.name }}
+                                        <span class="post-count">(13)</span>
+                                    </a>
+                                </li>
+                            {% endfor %}
                         </ul>
                     </div>
 

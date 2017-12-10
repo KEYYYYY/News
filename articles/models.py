@@ -31,13 +31,14 @@ class Article(models.Model):
         null=True, blank=True, verbose_name='正文MarkDown')
     view_count = models.IntegerField(default=0, verbose_name='阅读量')
     comment_count = models.IntegerField(default=0, verbose_name='评论数')
-    add_time = models.DateField(default=datetime.now, verbose_name='发表日期')
+    add_time = models.DateTimeField(default=datetime.now, verbose_name='发表日期')
 
     class Meta:
         ordering = ('-add_time',)
         verbose_name = '文章'
         verbose_name_plural = verbose_name
 
+    # 重载save方法，保存的同时讲内容转化为html代码保存
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
         self.content_html = markdown.markdown(
@@ -52,3 +53,20 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Comment(models.Model):
+    """
+    评论模型
+    """
+    article = models.ForeignKey(Article, related_name='comments')
+    username = models.CharField(max_length=32, verbose_name='用户名')
+    email = models.EmailField(verbose_name='邮箱')
+    url = models.URLField(null=True, blank=True, verbose_name='链接')
+    content = models.TextField(verbose_name='内容')
+    add_time = models.DateTimeField(default=datetime.now, verbose_name='评论时间')
+
+    class Meta:
+        ordering = ('-add_time',)
+        verbose_name = '评论'
+        verbose_name_plural = verbose_name

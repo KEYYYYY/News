@@ -1,14 +1,12 @@
 {% extends 'base.html' %}
 
-{% load staticfiles %}
-
 {% block content %}
     <main class="col-md-8">
         {% for article in articles %}
-            <article class="post post-1">
+            <article class="post post-{{ forloop.counter }}">
                 <header class="entry-header">
                     <h1 class="entry-title">
-                        <a href="single.html">{{ article.title }}</a>
+                        <a href="{% url 'detail' article_id=article.id %}">{{ article.title }}</a>
                     </h1>
                     <div class="entry-meta">
                         <span class="post-category">
@@ -31,12 +29,11 @@
                     </div>
                 </header>
                 <div class="entry-content clearfix">
-                    <p>
-                        {{ article.content_html|safe|slice:"100" }}
-                        ...
-                    </p>
+                    <!-- <p>
+                        {{ article.content_html|safe|slice:"30" }}...
+                    </p> -->
                     <div class="read-more cl-effect-14">
-                        <a href="{% url 'detail' article_id=article.id %}" class="more-link">继续阅读
+                        <a href="{% url 'detail' article_id=article.id %}" class="more-link">阅读
                             <span class="meta-nav">→</span>
                         </a>
                     </div>
