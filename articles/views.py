@@ -1,51 +1,52 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic.base import View
+from django.views.generic import ListView, DetailView
 
 from articles.models import Article, Category
 from articles.forms import CommentForm
 
 
-class IndexView(View):
+class IndexView(ListView):
     """
     首页视图
     """
-
-    def get(self, request):
-        articles = Article.objects.all()
-        return render(request, 'index.html', {
-            'articles': articles,
-        })
+    model = Article
+    template_name = 'index.html'
+    context_object_name = 'articles'
 
 
-class ArchiveView(View):
+class ArchiveView(ListView):
     """
     归档视图
     """
+    model = Article
+    template_name = 'index.html'
+    context_object_name = 'articles'
 
-    def get(self, request, year, month):
-        articles = Article.objects.filter(
+    def get_queryset(self):
+        year = self.kwargs.get('year')
+        month = self.kwargs.get('month')
+        return super(ArchiveView, self).get_queryset().filter(
             add_time__year=year,
             add_time__month=month
         )
-        return render(request, 'index.html', {
-            'articles': articles,
-        })
 
 
-class CategoryView(View):
+class CategoryView(ListView):
     """
     分类视图
     """
+    model = Category
+    template_name = 'index.html'
+    context_object_name = 'articles'
 
-    def get(self, request, category_id):
-        category = get_object_or_404(Category, id=category_id)
-        articles = category.articles.all()
-        return render(request, 'index.html', {
-            'articles': articles,
-        })
+    def get_queryset(self):
+        return get_object_or_404(
+            Category,
+            id=self.kwargs.get('category_id')
+        ).articles.all()
 
 
-class DetailView(View):
+class ArticleDetailView(DetailView):
     """
     详情视图
     """

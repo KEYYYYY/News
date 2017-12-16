@@ -16,12 +16,14 @@ Including another URLconf
 from django.conf.urls import url
 
 import xadmin
-from articles.views import IndexView, DetailView, ArchiveView, CategoryView
+from articles.views import (ArchiveView, ArticleDetailView, CategoryView,
+                            IndexView)
 
 urlpatterns = [
     url(r'^admin/', xadmin.site.urls),
     url(r'^$', IndexView.as_view(), name='index'),
-    url(r'^detail/(?P<article_id>\d+)$', DetailView.as_view(), name='detail'),
+    url(r'^detail/(?P<article_id>\d+)$',
+        ArticleDetailView.as_view(), name='detail'),
     url(r'^category/(?P<category_id>\d+)$',
         CategoryView.as_view(), name='category'),
     url(r'^archives/(?P<year>\d{4})/(?P<month>\d{1,2})$',
