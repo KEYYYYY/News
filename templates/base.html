@@ -129,7 +129,7 @@
                             {% get_tags as tags %}
                             {% for tag in tags %}
                             <li>
-                                <a href="#">{{ tag.name }}</a>
+                                <a href="{% url 'tag' tag_id=tag.id %}">{{ tag.name }}</a>
                             </li>
                             {% endfor %}
                         </ul>

@@ -17,7 +17,7 @@ from django.conf.urls import url
 
 import xadmin
 from articles.views import (ArchiveView, ArticleDetailView, CategoryView,
-                            IndexView)
+                            IndexView, TagView)
 
 urlpatterns = [
     url(r'^admin/', xadmin.site.urls),
@@ -28,4 +28,5 @@ urlpatterns = [
         CategoryView.as_view(), name='category'),
     url(r'^archives/(?P<year>\d{4})/(?P<month>\d{1,2})$',
         ArchiveView.as_view(), name='archives'),
+    url(r'^tag/(?P<tag_id>\d+)$', TagView.as_view(), name='tag'),
 ]

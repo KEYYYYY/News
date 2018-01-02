@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import DetailView, ListView
 
 from articles.forms import CommentForm
-from articles.models import Article, Category
+from articles.models import Article, Category, Tag
 
 
 class IndexView(ListView):
@@ -85,3 +85,19 @@ class ArticleDetailView(DetailView):
         return render(request, 'detail.html', {
             'comment_form': comment_form,
         })
+
+
+class TagView(ListView):
+    """
+    标签视图
+    """
+    model = Tag
+    template_name = 'index.html'
+    context_object_name = 'articles'
+    paginate_by = 3
+
+    def get_queryset(self):
+        tag_id = self.kwargs.get('tag_id')
+        return super(TagView, self).get_queryset().get(
+            id=tag_id
+        ).articles.all()
