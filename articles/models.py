@@ -1,8 +1,8 @@
 from datetime import datetime
 
+import markdown
 from django.db import models
 from django.utils.html import strip_tags
-import markdown
 
 
 class Category(models.Model):
