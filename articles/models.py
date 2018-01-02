@@ -7,13 +7,13 @@ from django.utils.html import strip_tags
 
 class Category(models.Model):
     """
-    标签模型
+    分类模型
     """
-    name = models.CharField(max_length=30, verbose_name='标签')
+    name = models.CharField(max_length=30, verbose_name='分类')
     add_time = models.DateTimeField(default=datetime.now, verbose_name='添加时间')
 
     class Meta:
-        verbose_name = '标签'
+        verbose_name = '分类'
         verbose_name_plural = verbose_name
 
     def __str__(self):
@@ -26,6 +26,8 @@ class Article(models.Model):
     """
     category = models.ForeignKey(
         Category, related_name='articles', verbose_name='类别')
+    tags = models.ManyToManyField(
+        'Tag', 'articles', blank=True, verbose_name='标签')
     title = models.CharField(max_length=64, verbose_name='标题')
     content = models.TextField(null=True, blank=True, verbose_name='正文')
     content_html = models.TextField(
@@ -84,3 +86,17 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.username
+
+
+class Tag(models.Model):
+    """
+    标签模型
+    """
+    name = models.CharField(max_length=32, verbose_name='标签名')
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = '标签'
+        verbose_name_plural = verbose_name

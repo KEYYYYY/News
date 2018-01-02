@@ -116,7 +116,7 @@
                             {% for category in categorys %}
                                 <li>
                                     <a href="{% url 'category' category_id=category.id %}">{{ category.name }}
-                                        <span class="post-count">({{ category.articles.all.count }})</span>
+                                        <span class="post-count">({{ category.num }})</span>
                                     </a>
                                 </li>
                             {% endfor %}
@@ -126,36 +126,12 @@
                     <div class="widget widget-tag-cloud">
                         <h3 class="widget-title">标签云</h3>
                         <ul>
+                            {% get_tags as tags %}
+                            {% for tag in tags %}
                             <li>
-                                <a href="#">Django</a>
+                                <a href="#">{{ tag.name }}</a>
                             </li>
-                            <li>
-                                <a href="#">Python</a>
-                            </li>
-                            <li>
-                                <a href="#">Java</a>
-                            </li>
-                            <li>
-                                <a href="#">笔记</a>
-                            </li>
-                            <li>
-                                <a href="#">文档</a>
-                            </li>
-                            <li>
-                                <a href="#">AngularJS</a>
-                            </li>
-                            <li>
-                                <a href="#">CSS</a>
-                            </li>
-                            <li>
-                                <a href="#">JavaScript</a>
-                            </li>
-                            <li>
-                                <a href="#">Snippet</a>
-                            </li>
-                            <li>
-                                <a href="#">jQuery</a>
-                            </li>
+                            {% endfor %}
                         </ul>
                     </div>
                     <div class="rss">
