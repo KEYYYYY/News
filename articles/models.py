@@ -3,6 +3,8 @@ from datetime import datetime
 import markdown
 from django.db import models
 from django.utils.html import strip_tags
+from django.utils.text import slugify
+from markdown.extensions.toc import TocExtension
 
 
 class Category(models.Model):
@@ -30,6 +32,7 @@ class Article(models.Model):
         'Tag', 'articles', blank=True, verbose_name='标签')
     title = models.CharField(max_length=64, verbose_name='标题')
     content = models.TextField(null=True, blank=True, verbose_name='正文')
+    toc_html = models.TextField(null=True, blank=True, verbose_name='目录')
     content_html = models.TextField(
         null=True, blank=True, verbose_name='正文MarkDown')
     excerpt = models.CharField(
@@ -52,14 +55,18 @@ class Article(models.Model):
     # 保存的同时讲内容转化为html代码保存
     # 生成摘要信息
     def save(self, *args, **kwargs):
-        self.content_html = markdown.markdown(
-            self.content,
+        md = markdown.Markdown(
             extensions=[
                 'markdown.extensions.extra',
+                # 添加代码高亮扩展
                 'markdown.extensions.codehilite',
-                'markdown.extensions.toc',
+                # 添加目录扩展
+                # 'markdown.extensions.toc',
+                TocExtension(slugify=slugify)
             ]
         )
+        self.content_html = md.convert(self.content)
+        self.toc_html = md.toc
         self.excerpt = strip_tags(self.content_html[:100])
         super(Article, self).save(*args, **kwargs)
 

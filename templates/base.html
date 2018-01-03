@@ -86,6 +86,9 @@
                 {% block content %}
                 {% endblock %}
                 <aside class="col-md-4">
+                    <!-- 目录 -->
+                    {% block toc %}
+                    {% endblock %}
                     <div class="widget widget-recent-posts">
                         <h3 class="widget-title">最新文章</h3>
                         <ul>
@@ -134,10 +137,10 @@
                             {% endfor %}
                         </ul>
                     </div>
-                    <div class="rss">
+                    <!-- <div class="rss">
                         <a href="">
                             <span class="ion-social-rss-outline"></span> RSS 订阅</a>
-                    </div>
+                    </div> -->
                 </aside>
             </div>
         </div>
@@ -162,7 +165,7 @@
         <nav>
             <ul>
                 <li>
-                    <a href="index.html">首页</a>
+                    <a href="{% url 'index' %}">首页</a>
                 </li>
                 <li>
                     <a href="full-width.html">博客</a>
