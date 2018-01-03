@@ -82,7 +82,6 @@ class Comment(models.Model):
         Article, related_name='comments', verbose_name='文章')
     username = models.CharField(max_length=32, verbose_name='用户名')
     email = models.EmailField(verbose_name='邮箱')
-    url = models.URLField(null=True, blank=True, verbose_name='链接')
     content = models.TextField(verbose_name='内容')
     add_time = models.DateTimeField(default=datetime.now, verbose_name='评论时间')
 
